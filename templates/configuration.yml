@@ -1,0 +1,18 @@
+owncast:
+  url: "https://my-very-owncast-server.live"
+  access-key: "XYZ"
+
+commands:
+  - description: "Does ABC, pretty well to be honest"
+    triggers:
+      - "!abc"
+      - "!a"
+    actions:
+      - chat_message:
+          - "Gimme an A"
+          - "Gimme a B"
+          - "Gimme a C"
+          - "ABC!"
+
+timers:
+  - description: "Does ABC, but in a timely manner"
