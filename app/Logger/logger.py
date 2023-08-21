@@ -26,6 +26,11 @@ class Logger:
     def debug(self, message):
         self.logger.debug(message)
 
+    def is_debug(self):
+        if self.level == "DEBUG":
+            return True
+        return False
+
     def __init_logger_with_file(self, logging_level, path, filename):
 
         loggerDictionary = {"INFO": logging.INFO, "WARN": logging.WARN, "DEBUG": logging.DEBUG, "ERROR": logging.ERROR}
