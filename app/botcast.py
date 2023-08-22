@@ -2,7 +2,7 @@ import sys
 import getopt
 from Logger.logger import Logger
 from Configuration.configuration import Configuration
-from Owncast.client import Client
+import Bot.timer as timer
 
 log_level = 'INFO'
 settings = './settings.yml'
@@ -43,7 +43,19 @@ if logger.is_debug():
 
 # Establishing connection
 # url = configuration['owncast']['url']
-logger.info(f'Establishing connection with {url}')
+#logger.info(f'Establishing connection with {url}')
 # owncast = Client(url=url)
+
+timers_number = len(configuration['timers'])
+logger.info(f'Creating timers, found {timers_number} elements')
+timers = []
+for item in configuration['timers']:
+    logger.info(f'- processing {item["alias"]}')
+
+    timers.append(timer.create_timer(item))
+
+    for timer in timers:
+        logger.info(timer.interval)
+        timer.start()
 
 logger.info(f'Bostcast started')
