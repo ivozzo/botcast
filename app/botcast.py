@@ -30,7 +30,11 @@ logger.info(f'Bostcast starting')
 
 # Configuration
 logger.info('Reading configuration file')
-configuration = Configuration(path='./', filename='test.yml').loaded
+try:
+    configuration = Configuration(settings).loaded
+except FileNotFoundError:
+    logger.error(f'Error while reading file {settings}, check out file existance, file permissions and file syntax')
+    sys.exit(1)
 
 if logger.is_debug():
     for doc, items in configuration.items():
@@ -38,8 +42,8 @@ if logger.is_debug():
             logger.debug(f'{doc}, {items}')
 
 # Establishing connection
-url = configuration['owncast']['url']
+# url = configuration['owncast']['url']
 logger.info(f'Establishing connection with {url}')
-owncast = Client(url=url)
+# owncast = Client(url=url)
 
-logger.info(owncast)
+logger.info(f'Bostcast started')
