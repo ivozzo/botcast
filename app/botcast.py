@@ -2,7 +2,7 @@ import sys
 import getopt
 from Logger.logger import Logger
 from Configuration.configuration import Configuration
-import Bot.timer as timer
+import Bot.owncasttimer as timer
 
 log_level = 'INFO'
 settings = './settings.yml'
@@ -28,12 +28,16 @@ logger = Logger(log_level)
 
 logger.info(f'Bostcast starting')
 
-# Configuration
+'''
+CONFIGURATION
+
+This snippet reads the configuration file
+'''
 logger.info('Reading configuration file')
 try:
     configuration = Configuration(settings).loaded
 except FileNotFoundError:
-    logger.error(f'Error while reading file {settings}, check out file existance, file permissions and file syntax')
+    logger.error(f'Error while reading file {settings}, check out file existence, file permissions and file syntax')
     sys.exit(1)
 
 if logger.is_debug():
@@ -41,21 +45,38 @@ if logger.is_debug():
         if doc != 'owncast':
             logger.debug(f'{doc}, {items}')
 
-# Establishing connection
-# url = configuration['owncast']['url']
-#logger.info(f'Establishing connection with {url}')
-# owncast = Client(url=url)
+logger.info('#################')
+logger.info('# CONFIGURATION #')
+logger.info('#################')
 
-timers_number = len(configuration['timers'])
-logger.info(f'Creating timers, found {timers_number} elements')
-timers = []
-for item in configuration['timers']:
-    logger.info(f'- processing {item["alias"]}')
+'''
+TIMERS
 
-    timers.append(timer.create_timer(item))
+This snippet checks if there are any timers loaded from the configuration
+and start them as a wrapped threading.Timer class 
+'''
+if configuration['timers'] is None:
+    logger.info('No timers found in the configuration, moving on')
+else:
+    timers_number = len(configuration['timers'])
+    logger.info(f'Creating timers, found {timers_number} elements')
+    timers = []
+    for item in configuration['timers']:
+        logger.info(f'- processing {item["alias"]}')
 
-    for timer in timers:
-        logger.info(timer.interval)
-        timer.start()
+        timers.append(timer.create_timer(item))
+
+        for timer in timers:
+            logger.info(timer.interval)
+            timer.start()
+
+
+'''
+COMMANDS
+
+This snippet will definitely do something in the near future, I promise
+'''
+if configuration['commands'] is None:
+    logger.info('No timers found in the configuration, moving on')
 
 logger.info(f'Bostcast started')

@@ -6,13 +6,10 @@ logger = logging.getLogger()
 
 
 def timed_action(*args, **kwargs):
-    logger.info(f'Executing timer {args}')
+    logger.info(f'Executing timer {args[0]}')
 
-    for action in args:
-        logger.info(action)
-        # if action.messages is not None:
-        #    logger.info(action.type)
-        #    logger.info(action.messages)
+    for action in args[2]:
+        logger.info(action.messages)
 
 
 class OwncastTimer(Timer):

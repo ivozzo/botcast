@@ -7,7 +7,7 @@ logger = logging.getLogger()
 def convert_actions(actions):
     for action in actions:
         if logger.level == logging.DEBUG:
-            logger.debug(f'- converting {action}')
+            logger.debug(f'- converting action: {action}')
 
         actions_list = []
 

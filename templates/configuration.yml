@@ -15,4 +15,14 @@ commands:
           - "ABC!"
 
 timers:
-  - description: "Does ABC, but in a timely manner"
+  - alias: "ABC-timer"
+    description: "Does ABC, but in a timely manner"
+    actions:
+      - chat_message:
+          - "Gimme an A"
+          - "Gimme a B"
+          - "Gimme a C"
+          - "ABC!"
+      - system_message:
+      - chat_action:
+    interval: "15"
