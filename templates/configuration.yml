@@ -1,5 +1,6 @@
 owncast:
-  url: "https://my-very-owncast-server.live"
+  url: "my-very-owncast-server.live"
+  port: 443
   access-key: "XYZ"
 
 commands:
